@@ -7,7 +7,7 @@ defmodule ProxerEx.Request do
           api_func: binary(),
           get_args: %{optional(binary()) => binary()},
           post_args: keyword(binary()),
-          header: keyword(binary()),
+          extra_header: keyword(binary()),
           authorization: boolean()
         }
   @enforce_keys [:method, :api_class, :api_func]
@@ -17,7 +17,7 @@ defmodule ProxerEx.Request do
     :api_func,
     get_args: %{},
     post_args: [],
-    header: [],
+    extra_header: [],
     authorization: false
   ]
 end

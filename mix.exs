@@ -25,8 +25,8 @@ defmodule ProxerEx.MixProject do
       {:poison, "~> 3.1"},
       {:ex_doc, "~> 0.16", only: [:dev], runtime: false},
       {:dialyxir, "~> 0.5.1", only: [:dev], runtime: false},
-      {:ace, "~> 0.15.10", only:  [:test]},
-	    {:junit_formatter, "~> 2.2", only: [:test]}
+      {:ace, "~> 0.15.10", only: [:test]},
+      {:junit_formatter, "~> 2.2", only: [:test]}
     ]
   end
 

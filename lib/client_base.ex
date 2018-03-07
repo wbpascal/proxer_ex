@@ -3,6 +3,8 @@ defmodule ProxerEx.Client.Base do
     Provides a default implementation for the Proxer API client.
   """
 
+  @type response :: {:ok, ProxerEx.Response.t()} | {:error, any()}
+
   defmacro __using__(_) do
     quote do
       use GenServer
@@ -78,7 +80,7 @@ defmodule ProxerEx.Client.Base do
       @spec create_headers(request :: ProxerEx.Request.t(), options :: ProxerEx.Options.t()) ::
               {:ok, keyword(binary())} | {:error, any()}
       defp create_headers(
-             %ProxerEx.Request{header: header, authorization: authorization},
+             %ProxerEx.Request{extra_header: header, authorization: authorization},
              %ProxerEx.Options{api_key: api_key, login_token: login_token, device: device}
            ) do
         header =
