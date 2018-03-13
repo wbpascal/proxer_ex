@@ -52,14 +52,21 @@ defmodule ProxerEx.Api.Base do
               {request,
                [
                  {:error,
-                  "the following parameter are not allowed, when \'#{inspect(name)}\' ist given, but were passed to the function: #{
+                  "the following parameter are not allowed, when \'#{inspect(name)}\' is given, but were passed to the function: #{
                     conflicts
                   }"}
                ]}
 
             {:has_key, false} ->
+              not_with_params =
+                Enum.filter(not_with, fn x ->
+                  Keyword.has_key?(actual_params, String.to_atom(x))
+                end)
+
               errors =
-                if optional do
+                if optional or not_with_params != [] do
+                  # if the parameter is optional or any of the parameter given in
+                  # :not_with are given then the processing should pass
                   []
                 else
                   [

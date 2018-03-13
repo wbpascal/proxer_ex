@@ -153,8 +153,18 @@ defmodule ProxerEx.Test.Api.Base do
     end
   end
 
-  test "mutually exclusive parameter are mutually exclusive" do
-    {:error, _} = TestApi.test_func_parameter_mutually_exclusive(test_param_1: "value", test_param_2: "asfzas")
+  describe "mutually exclusive parameter are mutually exclusive" do
+    test "mutually exclusive parameters cannot be given at the same time" do
+      {:error, _} =
+        TestApi.test_func_parameter_mutually_exclusive(
+          test_param_1: "value",
+          test_param_2: "asfzas"
+        )
+    end
+
+    test "if only one of the mutually exclusive parameters are given, then processing should succeed" do
+      {:ok, _} = TestApi.test_func_parameter_mutually_exclusive(test_param_1: "value")
+    end
   end
 
   test "custom processing function is called" do
