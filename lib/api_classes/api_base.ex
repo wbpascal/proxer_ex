@@ -127,6 +127,13 @@ defmodule ProxerEx.Api.Base do
     end
   end
 
+  defmacro paging_parameter() do
+    quote do
+      parameter("p", :get, optional: true)
+      parameter("limit", :get, optional: true)
+    end
+  end
+
   def get_default_process_method(:get), do: :add_get_parameter
 
   def get_default_process_method(:post), do: :add_post_parameter

@@ -23,7 +23,7 @@ defmodule ProxerEx.Test.Api.Base do
     end
 
     api_func "TESTFuncTo Escape" do
-      parameter("test_param", :get)
+      api_doc("DOC_TEXT")
     end
 
     api_func "test_func_optional_parameter" do
@@ -34,6 +34,10 @@ defmodule ProxerEx.Test.Api.Base do
     api_func "test_func_parameter_mutually_exclusive" do
       parameter("test_param_1", :get, not_with: ["test_param_2"])
       parameter("test_param_2", :post, not_with: ["test_param_1"])
+    end
+
+    api_func "test_func_with_paging_parameter" do
+      paging_parameter()
     end
 
     @doc false
@@ -62,7 +66,14 @@ defmodule ProxerEx.Test.Api.Base do
   end
 
   test "function names are correctly escaped" do
-    assert function_exported?(TestApi, :test_func_to_escape, 1)
+    assert function_exported?(TestApi, :test_func_to_escape, 0)
+    {:ok, request} = TestApi.test_func_to_escape()
+
+    assert request == %ProxerEx.Request{
+             method: :get,
+             api_class: "test_api",
+             api_func: "TESTFuncTo Escape"
+           }
   end
 
   test "documentation exists where given" do
@@ -153,7 +164,18 @@ defmodule ProxerEx.Test.Api.Base do
              method: :get,
              api_class: "test_api",
              api_func: "test_func_custom_processing",
-             get_args: %{"1" => "value 1", "key 2" => "value of key 2"},
+             get_args: %{"1" => "value 1", "key 2" => "value of key 2"}
+           }
+  end
+
+  test "paged parameter are added" do
+    {:ok, request} = TestApi.test_func_with_paging_parameter(p: 1, limit: 200)
+
+    assert request == %ProxerEx.Request{
+             method: :get,
+             api_class: "test_api",
+             api_func: "test_func_with_paging_parameter",
+             get_args: %{p: 1, limit: 200}
            }
   end
 end
