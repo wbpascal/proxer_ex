@@ -13,6 +13,8 @@ jobs:
       - restore_cache:
           keys:
             - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+      - restore_cache:
+          keys:
             - v1-build-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
 
       - run: mix deps.get
