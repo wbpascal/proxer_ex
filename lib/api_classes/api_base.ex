@@ -1,4 +1,6 @@
 defmodule ProxerEx.Api.Base do
+  @type request :: {:ok, ProxerEx.Request.t()} | {:error, any()}
+
   defmacro __using__(api_class: api_class) do
     quote do
       import ProxerEx.Api.Base
@@ -161,6 +163,8 @@ defmodule ProxerEx.Api.Base do
         unquote(block)
 
         if Enum.count(@func_params) == 0 do
+          @spec unquote(String.to_atom(escape_function_name(func_name)))() ::
+                  ProxerEx.Api.Client.Base.request()
           def unquote(String.to_atom(escape_function_name(func_name)))() do
             request = %ProxerEx.Request{
               method: :get,
@@ -173,6 +177,8 @@ defmodule ProxerEx.Api.Base do
             {:ok, request}
           end
         else
+          @spec unquote(String.to_atom(escape_function_name(func_name)))(keyword()) ::
+                  ProxerEx.Api.Client.Base.request()
           def unquote(String.to_atom(escape_function_name(func_name)))(params) do
             request = %ProxerEx.Request{
               method: :get,
