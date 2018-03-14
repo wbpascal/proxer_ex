@@ -176,45 +176,29 @@ defmodule ProxerEx.Api.Base do
       try do
         unquote(block)
 
-        if Enum.count(@func_params) == 0 do
-          @spec unquote(String.to_atom(escape_function_name(func_name)))() ::
-                  ProxerEx.Api.Client.Base.request()
-          def unquote(String.to_atom(escape_function_name(func_name)))() do
-            request = %ProxerEx.Request{
-              method: :get,
-              api_class: @api_class_name,
-              api_func: unquote(func_name),
-              extra_header: unquote(extra_header),
-              authorization: unquote(authorization)
-            }
+        @spec unquote(String.to_atom(escape_function_name(func_name)))(keyword()) ::
+                ProxerEx.Api.Client.Base.request()
+        def unquote(String.to_atom(escape_function_name(func_name)))(params \\ []) do
+          request = %ProxerEx.Request{
+            method: :get,
+            api_class: @api_class_name,
+            api_func: unquote(func_name),
+            extra_header: unquote(extra_header),
+            authorization: unquote(authorization)
+          }
+
+          with func_params <- @func_params,
+               :ok <- test_required_params_given(func_params, params),
+               {:ok, request} <- process_all_params(func_params, params, request) do
+            request =
+              if Enum.count(request.post_args) > 0,
+                do: %{request | method: :post},
+                else: request
 
             {:ok, request}
-          end
-        else
-          @spec unquote(String.to_atom(escape_function_name(func_name)))(keyword()) ::
-                  ProxerEx.Api.Client.Base.request()
-          def unquote(String.to_atom(escape_function_name(func_name)))(params) do
-            request = %ProxerEx.Request{
-              method: :get,
-              api_class: @api_class_name,
-              api_func: unquote(func_name),
-              extra_header: unquote(extra_header),
-              authorization: unquote(authorization)
-            }
-
-            with func_params <- @func_params,
-                 :ok <- test_required_params_given(func_params, params),
-                 {:ok, request} <- process_all_params(func_params, params, request) do
-              request =
-                if Enum.count(request.post_args) > 0,
-                  do: %{request | method: :post},
-                  else: request
-
-              {:ok, request}
-            else
-              {:error, error} -> {:error, error}
-              error -> {:error, error}
-            end
+          else
+            {:error, error} -> {:error, error}
+            error -> {:error, error}
           end
         end
       after
