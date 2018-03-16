@@ -8,7 +8,7 @@ defmodule ProxerEx.Options do
           port: integer(),
           use_ssl: boolean()
         }
-  @enforce_keys [:api_key, :api_host, :api_path, :port, :use_ssl]
+  @enforce_keys [:api_key]
   defstruct [
     :api_key,
     :login_token,
