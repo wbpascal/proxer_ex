@@ -10,10 +10,10 @@ defmodule ProxerEx.Client.Base do
       use GenServer
 
       @spec make_request(
-              client :: pid(),
+              client :: GenServer.server(),
               request :: ProxerEx.Request.t()
             ) :: {:ok, ProxerEx.Response.t()} | {:error, any()}
-      def make_request(client, %ProxerEx.Request{} = request) when is_pid(client) do
+      def make_request(client, %ProxerEx.Request{} = request) do
         case GenServer.call(client, {:request, request}) do
           {:ok, %ProxerEx.Response{} = response} -> {:ok, response}
           {:error, error} -> {:error, error}
