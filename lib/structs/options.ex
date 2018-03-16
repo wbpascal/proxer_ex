@@ -12,10 +12,10 @@ defmodule ProxerEx.Options do
   defstruct [
     :api_key,
     :login_token,
+    :port,
     device: "ProxerEx/#{ProxerEx.MixProject.project()[:version]}",
     api_host: "proxer.me",
     api_path: "/api",
-    port: 80,
     use_ssl: true
   ]
 end
