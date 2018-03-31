@@ -7,12 +7,11 @@ defmodule ProxerEx.Api.User do
 
   api_func "checkauth" do
     api_doc("""
-    Constructs a `ProxerEx.Request` that can be used to check if an authentication request started through
-    `ProxerEx.Api.User.requestauth/1` was approved by the user.
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Check Authentification``` api.
 
-    ## Parameter
-      * `name`: The `name` that was send with `ProxerEx.Api.User.requestauth/1`. **Always required**
-      * `code`: The `code` that was send with `ProxerEx.Api.User.requestauth/1`. **Always required**
+    This method recieves an optional keyword list as is only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
 
     ## Examples
 
@@ -39,24 +38,16 @@ defmodule ProxerEx.Api.User do
 
   api_func "comments" do
     api_doc("""
-    Constructs a `ProxerEx.Request` that can be used to get all comments of a user sorted by the newest first.
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get Latest Comments``` api.
+
+    This method recieves an optional keyword list as is only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
 
     To make sure the user is authorized to view the content the program is trying to access, it is
     recommended to set `ProxerEx.Request.authorization` to `true`. However this is not required and if
     left untouched the program must account for the possibility that the server may return an error if
     the information is not accessible to an anonymous user.
-
-    ## Parameter
-      * `uid`: An integer representing the user id of the user that requests to be logged in.
-        Required if `username` is not given. Returns an error if `username` is given at the same time.
-      * `username`: A string representing the username of the user that rqeuests to be logged in.
-        Required if `uid` is not given. Returns an error if `uid` is given at the same time.
-      * `kat`: **Optional**. A string representing the category of topten the request will return.
-        Either `"anime"` or `"manga"`. Default: both categories are returned
-      * `length`: **Optional**. An integer representing the minimum length that each returned comment must be.
-        Default: `300`
-      * `p`: **Optional**. An integer representing the page of comments is loaded. Default: `0`
-      * `limit`: **Optional**. An integer representing how many comments should be loaded per page. Default: `25`
 
     ## Examples
 
@@ -94,22 +85,16 @@ defmodule ProxerEx.Api.User do
 
   api_func "history" do
     api_doc("""
-    Constructs a `ProxerEx.Request` that can be used to get the last episodes and chapters seen by a user.
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get History``` api.
+
+    This method recieves an optional keyword list as is only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
 
     To make sure the user is authorized to view the content the program is trying to access, it is
     recommended to set `ProxerEx.Request.authorization` to `true`. However this is not required and if
     left untouched the program must account for the possibility that the server may return an error if
     the information is not accessible to an anonymous user.
-
-    ## Parameter
-      * `uid`: An integer representing the user id of the user that requests to be logged in.
-        Required if `username` is not given. Returns an error if `username` is given at the same time.
-      * `username`: A string representing the username of the user that rqeuests to be logged in.
-        Required if `uid` is not given. Returns an error if `uid` is given at the same time.
-      * `isH`: **Optional**. A boolean indicating whether or not adult content should be included in the response.
-        Default: `false`
-      * `p`: **Optional**. An integer representing the page of comments is loaded. Default: `0`
-      * `limit`: **Optional**. An integer representing how many comments should be loaded per page. Default: `100`
 
     ## Examples
 
@@ -147,40 +132,16 @@ defmodule ProxerEx.Api.User do
 
   api_func "list" do
     api_doc("""
-    Constructs a `ProxerEx.Request` that can be used to get a list of entries (anime or manga) a user
-    has listed in his profile.
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get List``` api.
+
+    This method recieves an optional keyword list as is only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
 
     To make sure the user is authorized to view the content the program is trying to access, it is
     recommended to set `ProxerEx.Request.authorization` to `true`. However this is not required and if
     left untouched the program must account for the possibility that the server may return an error if
     the information is not accessible to an anonymous user.
-
-    ## Parameter
-      * `uid`: An integer representing the user id of the user that requests to be logged in.
-        Required if `username` is not given. Returns an error if `username` is given at the same time.
-      * `username`: A string representing the username of the user that rqeuests to be logged in.
-        Required if `uid` is not given. Returns an error if `uid` is given at the same time.
-      * `kat`: **Optional**. A string representing the list category the request will return.
-        Either `"anime"` or `"manga"`. Default: `anime`
-      * `search`: **Optional**. A string representing a query that all entries should be filtered by.
-      * `search_start`: **Optional**. A string that all returned entries should start with.
-      * `isH`: **Optional**. A boolean indicating whether or not adult content should be included in the response.
-        Default: `false`
-      * `sort`: **Optional**. A string representing the order in which entries should be returned. Possible values:
-        * `nameASC`: Sort by entry name ascending
-        * `nameDESC`: Sort by entry name descending
-        * `stateNameASC`: Sort by entry status first, then by name ascending (**Default**)
-        * `stateNameDESC`: Sort by entry status first, then by name descending
-        * `changeDateASC`: Sort by date the entry was last changed ascending
-        * `changeDateDESC`: Sort by date the entry was last changed descending
-        * `stateChangeDateASC`: Sort by entry status first, then by date the entry was last changed ascending
-        * `stateChangeDateDESC`: Sort by entry status first, then by date the entry was last changed descending
-      * `filter`: **Optional**. A string representing a filter that will be applied to the returned list.
-        Possible values:
-        * `stateFilterX`: Show only entries that have a status of X, where X is `0`(watched),
-          `1`(currently watching), `2`(planning to watch) or `3`(cancelled).
-      * `p`: **Optional**. An integer representing the page of comments is loaded. Default: `0`
-      * `limit`: **Optional**. An integer representing how many comments should be loaded per page. Default: `100`
 
     ## Examples
 
@@ -235,13 +196,11 @@ defmodule ProxerEx.Api.User do
 
   api_func "login" do
     api_doc("""
-    Constructs a `ProxerEx.Request` that can be used to login a user via a username and a password.
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Login``` api.
 
-    ## Parameter
-
-      * `username`: A string representing the username **Always Required**
-      * `password`: A string representing the password of the user. **Always Required**
-      * `secretkey`: A string representing a valid 2FA key of the user **Always Required**
+    This method recieves an optional keyword list as is only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
 
     ## Examples
 
@@ -266,7 +225,7 @@ defmodule ProxerEx.Api.User do
 
   api_func "logout", authorization: true do
     api_doc("""
-    Constructs a `ProxerEx.Request` that can be used to logout an authorized user.
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Logout``` api.
 
     ## Examples
 
@@ -287,20 +246,11 @@ defmodule ProxerEx.Api.User do
 
   api_func "requestauth" do
     api_doc("""
-    Constructs a `ProxerEx.Request` that can be used to request the login of a specific user without
-    using their password.
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Request Authentification``` api.
 
-    For more detailed information go to the official documentation of
-    [User/Request Authentification](https://proxer.me/wiki/Proxer_API/v1/User)
-
-    ## Parameter
-      * `uid`: An integer representing the user id of the user that requests to be logged in.
-        Required if `username` is not given. Returns an error if `username` is given at the same time.
-      * `username`: A string representing the username of the user that rqeuests to be logged in.
-        Required if `uid` is not given. Returns an error if `uid` is given at the same time.
-      * `name`: A string representing the name of the app that issued the request. **Always required**.
-      * `code`: A 100 character long string representing the request. Can only be used once for each user.
-        **Always required**.
+    This method recieves an optional keyword list as is only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
 
     ## Examples
 
@@ -329,22 +279,16 @@ defmodule ProxerEx.Api.User do
 
   api_func "topten" do
     api_doc("""
-    Constructs a `ProxerEx.Request` that can be used to get the topten anime or manga of a user.
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get Topten``` api.
+
+    This method recieves an optional keyword list as is only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
 
     To make sure the user is authorized to view the content the program is trying to access, it is
     recommended to set `ProxerEx.Request.authorization` to `true`. However this is not required and if
     left untouched the program must account for the possibility that the server may return an error if
     the information is not accessible to an anonymous user.
-
-    ## Parameter
-      * `uid`: An integer representing the user id of the user that requests to be logged in.
-        Required if `username` is not given. Returns an error if `username` is given at the same time.
-      * `username`: A string representing the username of the user that rqeuests to be logged in.
-        Required if `uid` is not given. Returns an error if `uid` is given at the same time.
-      * `kat`: **Optional**. A string representing the category of topten the request will return.
-        Either `"anime"` or `"manga"`. Default: `"anime"`
-      * `isH`: **Optional**. A boolean indicating whether or not adult content should be included in the response.
-        Default: `false`
 
     ## Examples
 
@@ -382,16 +326,14 @@ defmodule ProxerEx.Api.User do
 
   api_func "userinfo" do
     api_doc("""
-    Constructs a `ProxerEx.Request` that can be used to get information about a user.
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Userinfo``` api.
+
+    This method recieves an optional keyword list as is only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
 
     If neither `uid` or `username` is given, information about the authenticated user is returned.
     In this case it is recommended to set `ProxerEx.Request.authorization` to `true`.
-
-    ## Parameter
-      * `uid`: An integer representing the user id of the user that requests to be logged in.
-        Returns an error if `username` is given at the same time.
-      * `username`: A string representing the username of the user that rqeuests to be logged in.
-        Returns an error if `uid` is given at the same time.
 
     ## Examples
 
