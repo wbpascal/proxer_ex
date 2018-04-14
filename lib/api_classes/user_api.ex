@@ -76,6 +76,7 @@ defmodule ProxerEx.Api.User do
         }}
 
     """)
+
     parameter("uid", :get, not_with: ["username"])
     parameter("username", :get, not_with: ["uid"])
     parameter("kat", :get, optional: true)
