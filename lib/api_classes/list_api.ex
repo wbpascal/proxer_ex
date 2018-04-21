@@ -8,10 +8,14 @@ defmodule ProxerEx.Api.List do
   # Processing methods
 
   @doc false
-  def to_plus_separated_string(%ProxerEx.Request{get_args: get_args} = request, name, value) do
-    converted_value = if is_list(value), do: Enum.join(value, "+"), else: value
-    get_args = get_args |> Map.put(name, converted_value)
+  def to_plus_separated_string(%ProxerEx.Request{get_args: get_args} = request, name, value)
+      when is_list(value) do
+    get_args = get_args |> Map.put(name, Enum.join(value, "+"))
+    {:ok, %{request | get_args: get_args}}
+  end
 
+  def to_plus_separated_string(%ProxerEx.Request{get_args: get_args} = request, name, value) do
+    get_args = get_args |> Map.put(name, value)
     {:ok, %{request | get_args: get_args}}
   end
 
@@ -320,6 +324,7 @@ defmodule ProxerEx.Api.List do
         }}
 
     """)
+
     parameter("search", :get)
   end
 
@@ -432,6 +437,7 @@ defmodule ProxerEx.Api.List do
         }}
 
     """)
+
     parameter("start", :get, optional: true)
     parameter("contains", :get, optional: true)
     parameter("country", :get, optional: true)

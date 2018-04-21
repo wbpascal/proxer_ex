@@ -1,4 +1,6 @@
 defmodule TestServer do
+  @moduledoc false
+
   use Ace.HTTP.Service, port: 4200, cleartext: true
 
   @impl Raxx.Server
@@ -17,10 +19,7 @@ defmodule TestServer do
         },
         _
       ) do
-    header_json =
-      headers_to_map(header)
-      |> Poison.encode!()
-
+    header_json = header |> headers_to_map() |> Poison.encode!()
     query_json = Poison.encode!(query)
 
     response(:ok)
@@ -42,14 +41,12 @@ defmodule TestServer do
         },
         _
       ) do
-    header_json =
-      headers_to_map(header)
-      |> Poison.encode!()
-
+    header_json = header |> headers_to_map() |> Poison.encode!()
     query_json = Poison.encode!(query)
 
     body_json =
-      String.replace(body, "+", " ")
+      body
+      |> String.replace("+", " ")
       |> String.split("&")
       |> Enum.map(&String.split(&1, "="))
       |> Enum.filter(fn elem -> Enum.count(elem) == 2 end)
@@ -70,7 +67,8 @@ defmodule TestServer do
   end
 
   def headers_to_map([{header, value} | rest]) do
-    headers_to_map(rest)
+    rest
+    |> headers_to_map()
     |> Map.put(header, value)
   end
 

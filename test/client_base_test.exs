@@ -25,7 +25,7 @@ defmodule ProxerEx.Test.Client.Base do
     end
 
     def process_post_args(post_args) do
-      post_args = if !Keyword.keyword?(post_args), do: [], else: post_args
+      post_args = if Keyword.keyword?(post_args), do: post_args, else: []
       {:ok, Keyword.put(post_args, :test_post_key, "test value for new post key")}
     end
 

@@ -1,4 +1,6 @@
 defmodule ProxerEx.Request do
+  @moduledoc "Proxer api request struct"
+
   @type http_method :: :get | :post
 
   @type t :: %ProxerEx.Request{

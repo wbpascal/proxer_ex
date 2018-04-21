@@ -1,4 +1,6 @@
 defmodule ProxerEx.Api.Base do
+  @moduledoc "Proxer api module base"
+
   @type request :: {:ok, ProxerEx.Request.t()} | {:error, any()}
 
   defmacro __using__(api_class: api_class) do
@@ -16,7 +18,7 @@ defmodule ProxerEx.Api.Base do
           end)
           |> Enum.map(fn {name, _, _, _} -> name end)
 
-        unless Enum.count(missing_params) == 0 do
+        unless Enum.empty?(missing_params) do
           {:error, "The following required parameters are not given: #{inspect(missing_params)}"}
         end
 
@@ -26,7 +28,7 @@ defmodule ProxerEx.Api.Base do
       defp process_all_params(func_params, actual_params, request) do
         {request, errors} = process_param(func_params, actual_params, request)
 
-        if Enum.count(errors) == 0 do
+        if Enum.empty?(errors) do
           {:ok, request}
         else
           {:error, "The following parameters failed to process: #{inspect(errors)}"}

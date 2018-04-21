@@ -1,4 +1,6 @@
 defmodule ProxerEx.Options do
+  @moduledoc "Client options struct"
+
   @type t :: %ProxerEx.Options{
           api_key: binary(),
           login_token: binary(),

@@ -1,4 +1,6 @@
 defmodule ProxerEx.Response do
+  @moduledoc "Proxer response struct"
+
   @type t :: %ProxerEx.Response{
           error: boolean(),
           message: binary(),
