@@ -57,7 +57,7 @@ defmodule ProxerEx.Api.List do
     parameter("contains", :get, optional: true)
     parameter("search", :get, optional: true)
     parameter("subject", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "entrylist" do
@@ -116,7 +116,7 @@ defmodule ProxerEx.Api.List do
     parameter("start", :get, optional: true)
     parameter("sort", :get, optional: true)
     parameter("sort_type", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "entrysearch" do
@@ -182,7 +182,7 @@ defmodule ProxerEx.Api.List do
     parameter("notags", :get, optional: true, process: :to_plus_separated_string)
     parameter("tagratefilter", :get, optional: true)
     parameter("tagspoilerfilter", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "industryprojects" do
@@ -221,7 +221,7 @@ defmodule ProxerEx.Api.List do
     parameter("id", :get)
     parameter("type", :get, optional: true)
     parameter("isH", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "industrys" do
@@ -260,7 +260,7 @@ defmodule ProxerEx.Api.List do
     parameter("contains", :get, optional: true)
     parameter("country", :get, optional: true)
     parameter("type", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "persons" do
@@ -299,7 +299,7 @@ defmodule ProxerEx.Api.List do
     parameter("contains", :get, optional: true)
     parameter("search", :get, optional: true)
     parameter("subject", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "tagids" do
@@ -403,7 +403,7 @@ defmodule ProxerEx.Api.List do
     parameter("id", :get)
     parameter("type", :get, optional: true)
     parameter("isH", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "translatorgroups" do
@@ -441,6 +441,6 @@ defmodule ProxerEx.Api.List do
     parameter("start", :get, optional: true)
     parameter("contains", :get, optional: true)
     parameter("country", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 end

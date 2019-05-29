@@ -81,7 +81,7 @@ defmodule ProxerEx.Api.User do
     parameter("username", :get, not_with: ["uid"])
     parameter("kat", :get, optional: true)
     parameter("length", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "history" do
@@ -128,7 +128,7 @@ defmodule ProxerEx.Api.User do
     parameter("uid", :get, not_with: ["username"])
     parameter("username", :get, not_with: ["uid"])
     parameter("isH", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "list" do
@@ -192,7 +192,7 @@ defmodule ProxerEx.Api.User do
     parameter("isH", :get, optional: true)
     parameter("sort", :get, optional: true)
     parameter("filter", :get, optional: true)
-    paging_parameter()
+    paging_parameters()
   end
 
   api_func "login" do

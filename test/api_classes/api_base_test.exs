@@ -37,7 +37,7 @@ defmodule ProxerEx.Test.Api.Base do
     end
 
     api_func "test_func_with_paging_parameter" do
-      paging_parameter()
+      paging_parameters()
     end
 
     @doc false

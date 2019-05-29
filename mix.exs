@@ -14,23 +14,23 @@ defmodule ProxerEx.MixProject do
 
   def application do
     [
-      extra_applications: [:logger],
-      applications: [:httpoison]
+      extra_applications: [:logger]
     ]
   end
 
   defp deps do
     [
-      {:httpoison, "~> 1.0"},
-      {:poison, "~> 3.1"},
+      {:tesla, "~> 1.2.0"},
+      # recommended adapter for tesla
+      {:hackney, "~> 1.14.0"},
+      # required by tesla's JSON middleware
+      {:jason, ">= 1.0.0"},
       {:ex_doc, "~> 0.16", only: [:dev], runtime: false},
       {:dialyxir, "~> 0.5.1", only: [:dev], runtime: false},
       {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
-      {:ace, "~> 0.15.10", only: [:test]},
       {:junit_formatter, "~> 2.2", only: [:test]}
     ]
   end
 
-  defp elixirc_paths(:test), do: ["lib", "test/server"]
   defp elixirc_paths(_), do: ["lib"]
 end

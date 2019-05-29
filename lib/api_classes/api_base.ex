@@ -136,7 +136,7 @@ defmodule ProxerEx.Api.Base do
     end
   end
 
-  defmacro paging_parameter() do
+  defmacro paging_parameters() do
     quote do
       parameter("p", :get, optional: true)
       parameter("limit", :get, optional: true)
