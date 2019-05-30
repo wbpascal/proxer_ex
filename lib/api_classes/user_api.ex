@@ -9,7 +9,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Check Authentification``` api.
 
-    This method recieves an optional keyword list as is only argument which represents the information send to
+    This method recieves an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -40,7 +40,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get Latest Comments``` api.
 
-    This method recieves an optional keyword list as is only argument which represents the information send to
+    This method recieves an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -88,7 +88,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get History``` api.
 
-    This method recieves an optional keyword list as is only argument which represents the information send to
+    This method recieves an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -135,7 +135,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get List``` api.
 
-    This method recieves an optional keyword list as is only argument which represents the information send to
+    This method recieves an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -199,7 +199,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Login``` api.
 
-    This method recieves an optional keyword list as is only argument which represents the information send to
+    This method recieves an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -249,7 +249,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Request Authentification``` api.
 
-    This method recieves an optional keyword list as is only argument which represents the information send to
+    This method recieves an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -282,7 +282,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get Topten``` api.
 
-    This method recieves an optional keyword list as is only argument which represents the information send to
+    This method recieves an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -329,7 +329,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Userinfo``` api.
 
-    This method recieves an optional keyword list as is only argument which represents the information send to
+    This method recieves an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 

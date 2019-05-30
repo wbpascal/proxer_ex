@@ -71,12 +71,20 @@ defmodule ProxerEx.Client do
   Makes a request to the api through the given client.
 
   Returns `{:ok, %ProxerEx.Response{...}}` if the request was successful or `{:error, error}` else.
+
+
+  ## Examples
+
+      iex> client = ProxerEx.Client.create("ZZZZZZZZZZZZZ")
+      iex> {:ok, request} = ProxerEx.Api.List.characters()
+      iex> ProxerEx.Client.make_request(request, client)
+      {:ok, %ProxerEx.Response{...}}
+
   """
   @spec make_request(request :: ProxerEx.Request.t(), client :: ProxerEx.Client.t()) ::
           {:ok, ProxerEx.Response.t()}
           | {:error, :invalid_parameters}
           | {:error, Tesla.Env.t()}
-          | {:error, :could_not_decode_body}
           | {:error, any()}
   def make_request(
         %ProxerEx.Request{method: method, get_args: query, post_args: post_args} = request,

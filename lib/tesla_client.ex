@@ -7,5 +7,4 @@ defmodule ProxerEx.TeslaClient do
   plug(Tesla.Middleware.Timeout, timeout: 10_000)
   plug(Tesla.Middleware.FormUrlencoded)
   plug(Tesla.Middleware.DecodeJson)
-
 end

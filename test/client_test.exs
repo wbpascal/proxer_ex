@@ -1,6 +1,8 @@
 defmodule ProxerEx.Test.Client do
   use ExUnit.Case, async: false
-  doctest ProxerEx.Client
+
+  # Exclude the documentation of make_request/2 because it would make a request to the server and thus may fail
+  doctest ProxerEx.Client, except: [make_request: 2]
 
   import Tesla.Mock
 
