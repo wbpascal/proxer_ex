@@ -3,12 +3,6 @@ defmodule ProxerEx.Client do
     Proxer API Client
   """
 
-  use Tesla
-
-  # plug Tesla.Middleware.Timeout, timeout: 10_000
-  plug(Tesla.Middleware.FormUrlencoded)
-  plug(Tesla.Middleware.DecodeJson)
-
   @type t :: %ProxerEx.Client{
           key: binary() | :test,
           login_token: binary(),
@@ -22,13 +16,14 @@ defmodule ProxerEx.Client do
   ]
 
   @doc """
-    Creates a new client with the given api key and some optional options.
+  Creates a new client with the given api key and some optional options.
 
-    If key is `:test` the client will access the test mode of the api.
+  If key is `:test` the client will access the test mode of the api.
 
-    Returns a `ProxerEx.Client` struct.
+  Returns a `ProxerEx.Client` struct.
 
-    ## Examples
+
+  ## Examples
 
       iex> ProxerEx.Client.create("XXXXXXXXXXXXXXXX")
       %ProxerEx.Client{
@@ -73,14 +68,14 @@ defmodule ProxerEx.Client do
   end
 
   @doc """
-    Makes a request to the api through the given client.
+  Makes a request to the api through the given client.
 
-    Returns `{:ok, %ProxerEx.Response{...}}` if the request was successful or `{:error, error}` else.
+  Returns `{:ok, %ProxerEx.Response{...}}` if the request was successful or `{:error, error}` else.
   """
   @spec make_request(request :: ProxerEx.Request.t(), client :: ProxerEx.Client.t()) ::
           {:ok, ProxerEx.Response.t()}
           | {:error, :invalid_parameters}
-          | {:error, HTTPoison.Response.t()}
+          | {:error, Tesla.Env.t()}
           | {:error, :could_not_decode_body}
           | {:error, any()}
   def make_request(
@@ -183,13 +178,13 @@ defmodule ProxerEx.Client do
   defp do_request(:get, url, query, _post_args, headers)
        when is_binary(url) and is_list(query) and is_list(headers) do
     headers = ProxerEx.Helper.KeywordHelper.to_string_list(headers)
-    get(url, headers: headers, query: query)
+    ProxerEx.TeslaClient.get(url, headers: headers, query: query)
   end
 
   defp do_request(:post, url, query, post_args, headers)
        when is_binary(url) and is_list(query) and is_list(post_args) and is_list(headers) do
     headers = ProxerEx.Helper.KeywordHelper.to_string_list(headers)
-    post(url, post_args, headers: headers, query: query)
+    ProxerEx.TeslaClient.post(url, post_args, headers: headers, query: query)
   end
 
   defp do_request(_method, _url, _query, _post_args, _headers) do
