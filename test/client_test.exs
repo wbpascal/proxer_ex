@@ -70,6 +70,39 @@ defmodule ProxerEx.Test.Client do
     assert response.message == "Hello, World!"
   end
 
+  describe "create client" do
+    test "test with test mode" do
+      {:ok, client} = ProxerEx.Client.create(:test, @client_options)
+      assert client == %ProxerEx.Client{key: :test, options: @client_options}
+    end
+
+    test "test with valid key" do
+      {:ok, client} = ProxerEx.Client.create("ararara", @client_options)
+      assert client == %ProxerEx.Client{key: "ararara", options: @client_options}
+    end
+
+    test "options default to empty struct" do
+      {:ok, client} = ProxerEx.Client.create("ZZZZZZZ")
+      assert client.options == %ProxerEx.Options{}
+      {:ok, client} = ProxerEx.Client.create(:test)
+      assert client.options == %ProxerEx.Options{}
+    end
+
+    test "test with invalid key" do
+      result = ProxerEx.Client.create(nil, @client_options)
+      assert result == {:error, :invalid_parameters}
+      result = ProxerEx.Client.create([], @client_options)
+      assert result == {:error, :invalid_parameters}
+    end
+
+    test "test with invalid options" do
+      result = ProxerEx.Client.create("YYYYYYYY", nil)
+      assert result == {:error, :invalid_parameters}
+      result = ProxerEx.Client.create("YYYYYYYY", %{})
+      assert result == {:error, :invalid_parameters}
+    end
+  end
+
   describe "test get requests" do
     test "correct get request is made" do
       request = %ProxerEx.Request{
@@ -162,5 +195,27 @@ defmodule ProxerEx.Test.Client do
 
       assert response.data["body"] == "test_post_key=test_post_value&test2=value_of_test2"
     end
+  end
+
+  test "correctly uses the api test mode" do
+    test_client = %{@client | key: :test}
+
+    request = %ProxerEx.Request{
+      method: :get,
+      api_class: "test_class",
+      api_func: "ping",
+      get_args: %{"test_key" => "test_value"}
+    }
+
+    {:ok, %ProxerEx.Response{} = response} = ProxerEx.Client.make_request(request, test_client)
+
+    assert response.data["method"] == "GET"
+
+    assert Enum.count(response.data["query"]) == 1
+    assert Map.fetch!(response.data["query"], "test_key") == "test_value"
+
+    assert Enum.count(response.data["headers"]) >= 2
+    assert Map.fetch!(response.data["headers"], "proxer-api-testmode") == "1"
+    assert Map.fetch!(response.data["headers"], "User-Agent") == @user_agent
   end
 end

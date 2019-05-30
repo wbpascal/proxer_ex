@@ -26,45 +26,67 @@ defmodule ProxerEx.Client do
   ## Examples
 
       iex> ProxerEx.Client.create("XXXXXXXXXXXXXXXX")
-      %ProxerEx.Client{
-        key: "XXXXXXXXXXXXXXXX",
-        options: %ProxerEx.Options{
-          device: "ProxerEx/#{ProxerEx.MixProject.project()[:version]}",
-          host: "proxer.me",
-          path: "/api",
-          use_ssl: true
+      {:ok,
+        %ProxerEx.Client{
+          key: "XXXXXXXXXXXXXXXX",
+          options: %ProxerEx.Options{
+            device: "ProxerEx/#{ProxerEx.MixProject.project()[:version]}",
+            host: "proxer.me",
+            path: "/api",
+            use_ssl: true
+          }
         }
       }
 
       iex> ProxerEx.Client.create("YYYYYYYYYYYYYYY", %ProxerEx.Options{host: "localhost"})
-      %ProxerEx.Client{
-        key: "YYYYYYYYYYYYYYY",
-        options: %ProxerEx.Options{
-          device: "ProxerEx/#{ProxerEx.MixProject.project()[:version]}",
-          host: "localhost",
-          path: "/api",
-          use_ssl: true
+      {:ok,
+        %ProxerEx.Client{
+          key: "YYYYYYYYYYYYYYY",
+          options: %ProxerEx.Options{
+            device: "ProxerEx/#{ProxerEx.MixProject.project()[:version]}",
+            host: "localhost",
+            path: "/api",
+            use_ssl: true
+          }
         }
       }
 
       iex> ProxerEx.Client.create(:test)
-      %ProxerEx.Client{
-        key: :test,
-        options: %ProxerEx.Options{
-          device: "ProxerEx/#{ProxerEx.MixProject.project()[:version]}",
-          host: "proxer.me",
-          path: "/api",
-          use_ssl: true
+      {:ok,
+        %ProxerEx.Client{
+          key: :test,
+          options: %ProxerEx.Options{
+            device: "ProxerEx/#{ProxerEx.MixProject.project()[:version]}",
+            host: "proxer.me",
+            path: "/api",
+            use_ssl: true
+          }
         }
       }
 
   """
-  @spec create(key :: binary() | :test, options :: ProxerEx.Options.t()) :: ProxerEx.Client.t()
-  def create(key, options \\ %ProxerEx.Options{}) do
-    %ProxerEx.Client{
-      key: key,
-      options: options
-    }
+  @spec create(key :: binary() | :test, options :: ProxerEx.Options.t()) ::
+          {:ok, ProxerEx.Client.t()} | {:error, :invalid_parameters} | {:error, any()}
+  def create(key, options \\ %ProxerEx.Options{})
+
+  def create(:test, %ProxerEx.Options{} = options) do
+    {:ok,
+     %ProxerEx.Client{
+       key: :test,
+       options: options
+     }}
+  end
+
+  def create(key, %ProxerEx.Options{} = options) when is_binary(key) do
+    {:ok,
+     %ProxerEx.Client{
+       key: key,
+       options: options
+     }}
+  end
+
+  def create(_key, _options) do
+    {:error, :invalid_parameters}
   end
 
   @doc """
@@ -75,7 +97,7 @@ defmodule ProxerEx.Client do
 
   ## Examples
 
-      iex> client = ProxerEx.Client.create("ZZZZZZZZZZZZZ")
+      iex> {:ok, client} = ProxerEx.Client.create("ZZZZZZZZZZZZZ")
       iex> {:ok, request} = ProxerEx.Api.List.characters()
       iex> ProxerEx.Client.make_request(request, client)
       {:ok, %ProxerEx.Response{...}}
