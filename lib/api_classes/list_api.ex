@@ -25,7 +25,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Get Characters``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -64,7 +64,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Get Entry List``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -123,7 +123,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Entry Search``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -189,7 +189,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Get Industry Projects``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -228,7 +228,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Get Industrys``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -267,7 +267,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Get Persons``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -306,7 +306,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Get Tag IDs``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -332,7 +332,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Get Tags``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -371,7 +371,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Get Translatorgroup Projects``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -410,7 +410,7 @@ defmodule ProxerEx.Api.List do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```List/Get Translatorgroups``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 

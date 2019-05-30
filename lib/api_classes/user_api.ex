@@ -5,11 +5,56 @@ defmodule ProxerEx.Api.User do
 
   use ProxerEx.Api.Base, api_class: "user"
 
+  api_func "about" do
+    api_doc("""
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get About``` api.
+
+    This method receives an optional keyword list as its only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
+
+    To make sure the user is authorized to view the content the program is trying to access, it is
+    recommended to set `ProxerEx.Request.authorization` to `true`. However this is not required and if
+    left untouched the program must account for the possibility that the server may return an error if
+    the information is not accessible to an anonymous user.
+
+    ## Examples
+
+        iex> ProxerEx.Api.User.about(uid: 1337)
+        {:ok,
+         %ProxerEx.Request{
+           api_class: "user",
+           api_func: "about",
+           authorization: false,
+           extra_header: [],
+           get_args: %{uid: 1337},
+           method: :get,
+           post_args: []
+        }}
+
+        iex> ProxerEx.Api.User.about()
+        {:ok,
+         %ProxerEx.Request{
+           api_class: "user",
+           api_func: "about",
+           authorization: false,
+           extra_header: [],
+           get_args: %{},
+           method: :get,
+           post_args: []
+        }}
+
+    """)
+
+    parameter("uid", :get, optional: true, not_with: ["username"])
+    parameter("username", :get, optional: true, not_with: ["uid"])
+  end
+
   api_func "checkauth" do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Check Authentification``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -40,7 +85,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get Latest Comments``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -84,11 +129,56 @@ defmodule ProxerEx.Api.User do
     paging_parameters()
   end
 
+  api_func "friends" do
+    api_doc("""
+    Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get Friends``` api.
+
+    This method receives an optional keyword list as its only argument which represents the information send to
+    the respective api. All keys must be named as seen in the official documentation. For further information
+    take a look at the examples below.
+
+    To make sure the user is authorized to view the content the program is trying to access, it is
+    recommended to set `ProxerEx.Request.authorization` to `true`. However this is not required and if
+    left untouched the program must account for the possibility that the server may return an error if
+    the information is not accessible to an anonymous user.
+
+    ## Examples
+
+        iex> ProxerEx.Api.User.friends(uid: 1337)
+        {:ok,
+         %ProxerEx.Request{
+           api_class: "user",
+           api_func: "friends",
+           authorization: false,
+           extra_header: [],
+           get_args: %{uid: 1337},
+           method: :get,
+           post_args: []
+        }}
+
+        iex> ProxerEx.Api.User.friends()
+        {:ok,
+         %ProxerEx.Request{
+           api_class: "user",
+           api_func: "friends",
+           authorization: false,
+           extra_header: [],
+           get_args: %{},
+           method: :get,
+           post_args: []
+        }}
+
+    """)
+
+    parameter("uid", :get, optional: true, not_with: ["username"])
+    parameter("username", :get, optional: true, not_with: ["uid"])
+  end
+
   api_func "history" do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get History``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -135,7 +225,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get List``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -199,7 +289,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Login``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -249,7 +339,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Request Authentification``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -282,7 +372,7 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Get Topten``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
@@ -329,12 +419,12 @@ defmodule ProxerEx.Api.User do
     api_doc("""
     Constructs a `ProxerEx.Request` that can be used to send a request to the ```User/Userinfo``` api.
 
-    This method recieves an optional keyword list as its only argument which represents the information send to
+    This method receives an optional keyword list as its only argument which represents the information send to
     the respective api. All keys must be named as seen in the official documentation. For further information
     take a look at the examples below.
 
     If neither `uid` or `username` is given, information about the authenticated user is returned.
-    In this case it is recommended to set `ProxerEx.Request.authorization` to `true`.
+    In this case it is required to set `ProxerEx.Request.authorization` to `true`.
 
     ## Examples
 
