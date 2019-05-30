@@ -144,3 +144,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
+### ASDF version manager ###
+.tool-versions
