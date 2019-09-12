@@ -1,7 +1,7 @@
 defmodule ProxerEx.Api.Base do
   @moduledoc "Proxer api module base"
 
-  @type request :: {:ok, ProxerEx.Request.t()} | {:error, any()}
+  @type request() :: {:ok, ProxerEx.Request.t()} | {:error, any()}
 
   defmacro __using__(api_class: api_class) do
     quote do
@@ -107,6 +107,11 @@ defmodule ProxerEx.Api.Base do
   end
 
   @doc """
+    opts:
+    * :optional
+    * :process
+    * :not_with
+
     :process is only called if a value was given to the method
   """
   defmacro parameter(name, method, opts \\ []) when is_binary(name) and is_atom(method) do
@@ -161,6 +166,10 @@ defmodule ProxerEx.Api.Base do
     end
   end
 
+  @doc """
+  TODO: This documentation
+  TODO: Add opts to name api function differently from the function name
+  """
   defmacro api_func(func_name, opts \\ [], do: block) do
     add_api_func(func_name, Keyword.put(opts, :do, block))
   end
@@ -179,7 +188,7 @@ defmodule ProxerEx.Api.Base do
         unquote(block)
 
         @spec unquote(String.to_atom(escape_function_name(func_name)))(keyword()) ::
-                ProxerEx.Api.Client.Base.request()
+                ProxerEx.Api.Base.request()
         def unquote(String.to_atom(escape_function_name(func_name)))(params \\ []) do
           request = %ProxerEx.Request{
             method: :get,

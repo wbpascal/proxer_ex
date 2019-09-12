@@ -5,7 +5,7 @@ defmodule ProxerEx.Options do
           device: binary(),
           host: binary(),
           path: binary(),
-          port: integer(),
+          port: integer() | nil,
           use_ssl: boolean()
         }
   defstruct [

@@ -60,7 +60,7 @@ defmodule ProxerEx.Api.User do
 
     ## Examples
 
-        iex> code = 1..100 |> Enum.reduce("", fn _, acc -> acc <> "0" end)
+        iex> code = 1..5 |> Enum.reduce("", fn _, acc -> acc <> "0" end)
         iex> ProxerEx.Api.User.checkauth(name: "Example App", code: code)
         {:ok,
           %ProxerEx.Request{
@@ -71,7 +71,7 @@ defmodule ProxerEx.Api.User do
             get_args: %{name: "Example App"},
             method: :post,
             post_args: [
-              code: "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+              code: "00000"
             ]
         }}
 
