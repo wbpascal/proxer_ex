@@ -120,7 +120,11 @@ defmodule ProxerEx.Client do
          {:ok, header} <- create_headers(request, client),
          {:ok, %Tesla.Env{body: body, status: 200}} when is_map(body) <-
            do_request(method, url, Map.to_list(query), post_args, header) do
-      body = MapHelper.to_atom_map(body)
+      body =
+        body
+        |> MapHelper.to_atom_map()
+        |> Map.update(:error, 1, &(&1 != 0))
+
       {:ok, struct(ProxerEx.Response, body)}
     else
       {:ok, %Tesla.Env{} = response} ->

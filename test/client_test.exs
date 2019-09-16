@@ -26,6 +26,9 @@ defmodule ProxerEx.Test.Client do
       %{method: :get, url: "https://localhost:4200/test_api/v1/test_class/test_func"} ->
         json(%{"error" => 0, "message" => "Hello, World!"})
 
+      %{method: :get, url: "https://localhost:4200/test_api/v1/test_class/error_func"} ->
+        json(%{"error" => 1, "code" => 42, "message" => "This is an error message!"})
+
       %{
         method: :get,
         url: "https://localhost:4200/test_api/v1/test_class/ping",
@@ -67,6 +70,7 @@ defmodule ProxerEx.Test.Client do
   test "url build from options is called" do
     request = %ProxerEx.Request{method: :get, api_class: "test_class", api_func: "test_func"}
     {:ok, %ProxerEx.Response{} = response} = ProxerEx.Client.make_request(request, @client)
+    assert not response.error
     assert response.message == "Hello, World!"
   end
 
@@ -114,6 +118,7 @@ defmodule ProxerEx.Test.Client do
 
       {:ok, %ProxerEx.Response{} = response} = ProxerEx.Client.make_request(request, @client)
 
+      assert not response.error
       assert response.data["method"] == "GET"
 
       assert Enum.count(response.data["query"]) == 1
@@ -135,6 +140,7 @@ defmodule ProxerEx.Test.Client do
 
       {:ok, %ProxerEx.Response{} = response} = ProxerEx.Client.make_request(request, @client)
 
+      assert not response.error
       assert response.data["method"] == "GET"
 
       assert Enum.count(response.data["query"]) == 1
@@ -159,6 +165,7 @@ defmodule ProxerEx.Test.Client do
 
       {:ok, %ProxerEx.Response{} = response} = ProxerEx.Client.make_request(request, @client)
 
+      assert not response.error
       assert response.data["method"] == "POST"
 
       assert Enum.count(response.data["query"]) == 1
@@ -183,6 +190,7 @@ defmodule ProxerEx.Test.Client do
 
       {:ok, %ProxerEx.Response{} = response} = ProxerEx.Client.make_request(request, @client)
 
+      assert not response.error
       assert response.data["method"] == "POST"
 
       assert Enum.count(response.data["query"]) == 1
@@ -209,6 +217,7 @@ defmodule ProxerEx.Test.Client do
 
     {:ok, %ProxerEx.Response{} = response} = ProxerEx.Client.make_request(request, test_client)
 
+    assert not response.error
     assert response.data["method"] == "GET"
 
     assert Enum.count(response.data["query"]) == 1
@@ -217,5 +226,13 @@ defmodule ProxerEx.Test.Client do
     assert Enum.count(response.data["headers"]) >= 2
     assert Map.fetch!(response.data["headers"], "proxer-api-testmode") == "1"
     assert Map.fetch!(response.data["headers"], "User-Agent") == @user_agent
+  end
+
+  test "error responses are correctly parsed" do
+    request = %ProxerEx.Request{method: :get, api_class: "test_class", api_func: "error_func"}
+    {:ok, %ProxerEx.Response{} = response} = ProxerEx.Client.make_request(request, @client)
+    assert response.error
+    assert response.code == 42
+    assert response.message == "This is an error message!"
   end
 end
